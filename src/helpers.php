@@ -4,7 +4,9 @@ use Overtrue\EasySms\EasySms;
 
 if (!function_exists('sms')){
     /**
-     * @return EasySms
+     * @return array|EasySms
+     * @throws \Overtrue\EasySms\Exceptions\InvalidArgumentException
+     * @throws \Overtrue\EasySms\Exceptions\NoGatewayAvailableException
      */
     function sms(){
         $arguments = func_get_args();
