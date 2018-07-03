@@ -8,6 +8,7 @@
 namespace XuTL\Sms;
 
 use Illuminate\Support\ServiceProvider;
+use Overtrue\EasySms\EasySms;
 
 /**
  * SMS服务提供者
