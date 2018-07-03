@@ -10,7 +10,10 @@
   "autoload": {
     "psr-4": {
       "XuTL\\Sms\\": "src"
-    }
+    },
+    "files": [
+      "src/helpers.php"
+    ]
   },
   "extra": {
     "branch-alias": {
