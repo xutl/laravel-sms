@@ -1,7 +1,7 @@
 <?php
 
 return [
-	// HTTP 请求的超时时间（秒）
+    // HTTP 请求的超时时间（秒）
     'timeout' => 5.0,
 
     // 默认发送配置
@@ -11,24 +11,12 @@ return [
 
         // 默认可用的发送网关
         'gateways' => [
-            'yunpian', 'aliyun', 'alidayu',
+
         ],
     ],
     // 可用的网关配置
     'gateways' => [
-        'errorlog' => [
-            'file' => '/tmp/easy-sms.log',
-        ],
-        'yunpian' => [
-            'api_key' => '824f0ff2f71cab52936axxxxxxxxxx',
-        ],
-        'aliyun' => [
-            'access_key_id' => '',
-            'access_key_secret' => '',
-            'sign_name' => '',
-        ],
-        'alidayu' => [
-            //...
-        ],
+        //Doc
+        // https://github.com/overtrue/easy-sms
     ],
 ];
