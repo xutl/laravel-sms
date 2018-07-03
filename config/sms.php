@@ -1,20 +1,20 @@
 <?php
 
 return [
-	// HTTP ÇëÇóµÄ³¬Ê±Ê±¼ä£¨Ãë£©
+	// HTTP è¯·æ±‚çš„è¶…æ—¶æ—¶é—´ï¼ˆç§’ï¼‰
     'timeout' => 5.0,
 
-    // Ä¬ÈÏ·¢ËÍÅäÖÃ
+    // é»˜è®¤å‘é€é…ç½®
     'default' => [
-        // Íø¹Øµ÷ÓÃ²ßÂÔ£¬Ä¬ÈÏ£ºË³Ðòµ÷ÓÃ
+        // ç½‘å…³è°ƒç”¨ç­–ç•¥ï¼Œé»˜è®¤ï¼šé¡ºåºè°ƒç”¨
         'strategy' => \Overtrue\EasySms\Strategies\OrderStrategy::class,
 
-        // Ä¬ÈÏ¿ÉÓÃµÄ·¢ËÍÍø¹Ø
+        // é»˜è®¤å¯ç”¨çš„å‘é€ç½‘å…³
         'gateways' => [
             'yunpian', 'aliyun', 'alidayu',
         ],
     ],
-    // ¿ÉÓÃµÄÍø¹ØÅäÖÃ
+    // å¯ç”¨çš„ç½‘å…³é…ç½®
     'gateways' => [
         'errorlog' => [
             'file' => '/tmp/easy-sms.log',
