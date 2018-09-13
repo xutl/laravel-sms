@@ -1,7 +1,5 @@
 <?php
 
-use Overtrue\EasySms\Strategies\OrderStrategy;
-
 return [
     // HTTP 请求的超时时间（秒）
     'timeout' => 5.0,
@@ -18,7 +16,7 @@ return [
     */
     'default' => [
         // 网关调用策略，默认：顺序调用
-        'strategy' => OrderStrategy::class,
+        'strategy' => \Overtrue\EasySms\Strategies\OrderStrategy::class,
 
         /*
         |--------------------------------------------------------------------------

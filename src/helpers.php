@@ -1,19 +1,19 @@
 <?php
 
-use Overtrue\EasySms\EasySms;
+use XuTL\Sms\Sms;
 
 if (!function_exists('sms')){
     /**
-     * @return array|EasySms
+     * @return array|Sms
      * @throws \Overtrue\EasySms\Exceptions\InvalidArgumentException
      * @throws \Overtrue\EasySms\Exceptions\NoGatewayAvailableException
      */
     function sms(){
         $arguments = func_get_args();
-        $easySms = app(EasySms::class);
+        $sms = app(Sms::class);
         if (empty($arguments)) {
-            return $easySms;
+            return $sms;
         }
-        return $easySms->send($arguments[0],$arguments[1]);
+        return $sms->send($arguments[0],$arguments[1]);
     }
 }

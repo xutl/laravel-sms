@@ -58,8 +58,16 @@ class SmsServiceProvider extends ServiceProvider
      */
     protected function registerLaravelBindings()
     {
-        $this->app->singleton(EasySms::class, function ($app) {
-            return new EasySms($app['config']['sms']);
+        $this->app->singleton(Sms::class, function ($app) {
+            return new Sms($this->getEasySms(config('sms')));
         });
+    }
+
+    /**
+     * @param array $config
+     * @return EasySms
+     */
+    protected function getEasySms(array $config){
+        return new EasySms($config);
     }
 }
