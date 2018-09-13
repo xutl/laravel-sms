@@ -16,7 +16,7 @@ use Overtrue\EasySms\EasySms;
  */
 class SmsServiceProvider extends ServiceProvider
 {
-	/**
+    /**
      * Indicates if loading of the provider is deferred.
      *
      * @var bool
@@ -30,10 +30,11 @@ class SmsServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-		$source = realpath($raw = __DIR__ . '/../config/sms.php') ?: $raw;
-		if ($this->app->runningInConsole()) {
+        $source = realpath($raw = __DIR__ . '/../config/sms.php') ?: $raw;
+
+        if ($this->app->runningInConsole()) {
             $this->publishes([
-               $source => config_path('sms.php'),
+                $source => config_path('sms.php'),
             ], 'sms-config');
         }
 
