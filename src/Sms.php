@@ -7,11 +7,13 @@
 
 namespace XuTL\Sms;
 
+use Illuminate\Support\Facades\Log;
 use Overtrue\EasySms\EasySms;
+use Overtrue\EasySms\Exceptions\NoGatewayAvailableException;
 
 /**
  * Class Sms
- *
+ * @mixin EasySms
  * @author Tongle Xu <xutongle@gmail.com>
  */
 class Sms
@@ -22,58 +24,53 @@ class Sms
     protected $easySms;
 
     /**
-     * Sms constructor.
-     *
-     * @param EasySms $easySms
+     * @return EasySms
      */
-    public function __construct(EasySms $easySms)
+    protected function getEasySms()
     {
-        $this->easySms = $easySms;
+        if (!$this->easySms) {
+            $config = config("sms");
+            $this->easySms = new EasySms($config);
+        }
+        return $this->easySms;
     }
 
     /**
-     * @param $to
+     * @param string $to
      * @param mixed $message
      * @param array $gateways
      * @return bool
      */
     public function send($to, $message, array $gateways = [])
     {
-
-            $results =  $this->easySms->send($to, $message, $gateways);
-            foreach ($results as $key => $value){
-                if ('success' == $value['status']) {
-                    return true;
-                }
-            }
-            return false;
         try {
             $flag = false;
-            $this->setKey($to);
-            //1. get code from storage.
-            $code = $this->getCodeFromStorage();
-            if ($this->needNewCode($code)) {
-                $code = $this->getNewCode($to);
-            }
-            $validMinutes = (int)config('ibrand.sms.code.validMinutes', 5);
-            $message = new CodeMessage($code->code, $validMinutes);
-            $results = $this->easySms->send($to, $message);
+            $results = $this->getEasySms()->send($to, $message, $gateways);
             foreach ($results as $key => $value) {
                 if ('success' == $value['status']) {
-                    $code->put('sent', true);
-                    $code->put('sentAt', Carbon::now());
-                    $this->storage->set($this->key, $code);
                     $flag = true;
                 }
             }
         } catch (NoGatewayAvailableException $noGatewayAvailableException) {
             $results = $noGatewayAvailableException->results;
+            Log::warning(json_encode($results));
             $flag = false;
         } catch (\Exception $exception) {
             $results = $exception->getMessage();
+            Log::error(json_encode($results));
             $flag = false;
         }
-        DbLogger::dispatch($code, json_encode($results), $flag);
         return $flag;
+    }
+
+    /**
+     * @param $method
+     * @param $parameters
+     *
+     * @return mixed
+     */
+    public function __call($method, $parameters)
+    {
+        return call_user_func_array([ $this->getEasySms(), $method ], $parameters);
     }
 }

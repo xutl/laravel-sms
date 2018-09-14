@@ -4,9 +4,7 @@ use XuTL\Sms\Sms;
 
 if (!function_exists('sms')){
     /**
-     * @return array|Sms
-     * @throws \Overtrue\EasySms\Exceptions\InvalidArgumentException
-     * @throws \Overtrue\EasySms\Exceptions\NoGatewayAvailableException
+     * @return Sms|bool
      */
     function sms(){
         $arguments = func_get_args();
