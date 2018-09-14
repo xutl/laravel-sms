@@ -2,6 +2,10 @@
 
 This is a sms expansion for the laravel
 
+[![License](https://poser.pugx.org/xutl/laravel-sms/license.svg)](https://packagist.org/packages/xutl/laravel-sms)
+[![Latest Stable Version](https://poser.pugx.org/xutl/laravel-sms/v/stable.png)](https://packagist.org/packages/xutl/laravel-sms)
+[![Total Downloads](https://poser.pugx.org/xutl/laravel-sms/downloads.png)](https://packagist.org/packages/xutl/laravel-sms)
+
 ## 平台支持
 
 - [阿里云](https://www.aliyun.com/)
