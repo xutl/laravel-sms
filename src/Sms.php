@@ -26,7 +26,7 @@ class Sms
     /**
      * @return EasySms
      */
-    protected function getEasySms()
+    public function getEasySms()
     {
         if (!$this->easySms) {
             $config = config("sms");
@@ -39,11 +39,9 @@ class Sms
      * @param string $to
      * @param mixed $message
      * @param array $gateways
-     * @param bool $throwException 是否抛出异常
      * @return bool
-     * @throws \Exception|NoGatewayAvailableException
      */
-    public function send($to, $message, array $gateways = [], $throwException = false)
+    public function send($to, $message, array $gateways = [])
     {
         try {
             $flag = false;
@@ -54,21 +52,13 @@ class Sms
                 }
             }
         } catch (NoGatewayAvailableException $noGatewayAvailableException) {
+            $results = $noGatewayAvailableException->results;
+            Log::warning(json_encode($results));
             $flag = false;
-            if ($throwException) {
-                throw $noGatewayAvailableException;
-            } else {
-                $results = $noGatewayAvailableException->results;
-                Log::warning(json_encode($results));
-            }
         } catch (\Exception $exception) {
+            $results = $exception->getMessage();
+            Log::error(json_encode($results));
             $flag = false;
-            if ($throwException) {
-                throw $exception;
-            } else {
-                $results = $exception->getMessage();
-                Log::error(json_encode($results));
-            }
         }
         return $flag;
     }
@@ -81,6 +71,6 @@ class Sms
      */
     public function __call($method, $parameters)
     {
-        return call_user_func_array([$this->getEasySms(), $method], $parameters);
+        return call_user_func_array([ $this->getEasySms(), $method ], $parameters);
     }
 }
